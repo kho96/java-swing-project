@@ -36,6 +36,17 @@ public class WriteFrame extends JFrame implements ActionListener{
 	// now 현재 설정
 	GregorianCalendar now = new GregorianCalendar();
 	
+	// 날짜 값 문자열
+	String year = String.valueOf(now.get(Calendar.YEAR));
+	String month = String.valueOf(now.get(Calendar.MONTH)+1);
+	String date = String.valueOf(now.get(Calendar.DATE));
+	
+	// 날짜 문자열
+	String strDate = year +"년 " + month + "월 " + date + "일";
+	
+	// 사용할 파일이름
+	String fileName = strDate.replaceAll(" ", "");
+	
 	// 일기를 출력하고 입력가능한 JTextArea 생성
 	JTextArea txtArea = new JTextArea();
 	
@@ -53,8 +64,6 @@ public class WriteFrame extends JFrame implements ActionListener{
 		setSouth();
 		setListener();
 		setVisible(true);
-		
-		
 	}
 
 	// 리스너
@@ -62,7 +71,6 @@ public class WriteFrame extends JFrame implements ActionListener{
 		btnExit.addActionListener(this);
 		btnSave.addActionListener(this);
 		btnMyDiary.addActionListener(this);
-		
 	}
 	
 	// WriteFrame의 North패널
@@ -81,23 +89,13 @@ public class WriteFrame extends JFrame implements ActionListener{
 	private void setCenter() {
 		JPanel pnl = new JPanel(new BorderLayout());
 		JPanel pnlDate = new JPanel();
-		String year = String.valueOf(now.get(Calendar.YEAR));
-		String month = String.valueOf(now.get(Calendar.MONTH)+1);
-		String date = String.valueOf(now.get(Calendar.DATE));
-		JLabel lbl1 = new JLabel(year +"년 ");
-		JLabel lbl2 = new JLabel(month +"월 ");
-		JLabel lbl3 = new JLabel(date +"일");
-		pnlDate.add(lbl1);
-		pnlDate.add(lbl2);
-		pnlDate.add(lbl3);
+		JLabel lbl = new JLabel(strDate);
+		pnlDate.add(lbl);
 		pnl.add(pnlDate, BorderLayout.NORTH);
 		
 		try {
-			String strDate = year +"년 " + month + "월 " + date + "일";
-			String fileName = strDate.replaceAll(" ", "");
-//			FileReader reader = new FileReader("G:\\workspace\\diary\\"+fileName+".txt");
+			// 파일 읽기
 			FileReader reader = new FileReader("C:\\myDiary\\"+fileName+".txt");
-			//new InputStreamReader(new FileInputStream(getName()), "utf-8");
 			String str = "";
 			while (true) {
 				int i = reader.read();
@@ -123,30 +121,22 @@ public class WriteFrame extends JFrame implements ActionListener{
 		con.add(pnl, BorderLayout.SOUTH);
 	}
 	
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		if (obj == btnExit || obj == btnMyDiary) {
+		if (obj == btnExit || obj == btnMyDiary) { // 나가기, MyDiary
 			dispose();
 			new MainFrame(id);
-		} else if (obj == btnSave) {
+		} else if (obj == btnSave) { // 저장
 			try {
-				String year = String.valueOf(now.get(Calendar.YEAR));
-				String month = String.valueOf(now.get(Calendar.MONTH)+1);
-				String date = String.valueOf(now.get(Calendar.DATE));
-				String strDate = year +"년 " + month + "월 " + date + "일";
-				String fileName = strDate.replaceAll(" ", "");
-//				FileWriter writer = new FileWriter(
-//						"G:\\workspace\\diary\\"+fileName+".txt");
-				
-				// 폴더확인
+				// 폴더확인 후, 없는 경우 폴더 생성
 				File file = new File("C:\\myDiary");
 				if (!file.exists()) {
-//					System.out.println("폴더없음");
 					file.mkdir();
 				}
+				
+				// 파일쓰기
 				FileWriter writer = new FileWriter("C:\\myDiary\\"+fileName+".txt");
 				BufferedWriter br = new BufferedWriter(writer);
 				br.write(txtArea.getText());

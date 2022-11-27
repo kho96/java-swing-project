@@ -34,8 +34,8 @@ public class RegisterDialog extends JDialog implements ActionListener{
 	// 사용할 변수 선언 및 초기화
 	boolean useableId = false;
 	String ableId;
-	String strPw = "";
-	String strCPw = "";
+	String pw = "";
+	String cPw = "";
 	
 	// UserDao
 	UserDao dao = UserDao.getInstance();
@@ -124,31 +124,21 @@ public class RegisterDialog extends JDialog implements ActionListener{
 			String userInputId = tfId.getText();
 			
 			// 비밀번호, 비밀번호 확인에 입력한 값 String으로 받아내기
-			char[] userInputPw = pfPw.getPassword();
-			for(char c : userInputPw) {
-				strPw += c;
-			}
-			char[] userInputCPw = pfCPw.getPassword();
-			for(char c : userInputCPw) {
-				strCPw += c;
-			}
-			
-//			System.out.println(strPw); 비밀번호 값 출력
-//			System.out.println(strCPw); 비밀번호 확인 값 출력
+			String userInputPw = new String(pfPw.getPassword());
+			String userInputCPw = new String(pfCPw.getPassword());
 			
 			// 항목입력을 안한 경우
 			if(userInputName.trim().equals("") || userInputId.trim().equals("") ||
-					userInputPw.length==0 || userInputCPw.length==0) {
+					userInputPw.trim().equals("") || userInputCPw.trim().equals("")) {
 				JOptionPane.showMessageDialog(this, "모든 항목을 입력해주세요.", "오류 메세지", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 			
 			// 비밀번호, 비밀번호확인 두가지 정보가 일치하지 않는 경우
-			if(userInputPw.length != userInputCPw.length ||
-					!strPw.equals(strCPw)) {
+			if(!userInputPw.equals(userInputCPw)) {
 				JOptionPane.showMessageDialog(this, "비밀번호가 일치하지 않습니다.", "오류 메세지", JOptionPane.ERROR_MESSAGE);
-				strPw = "";
-				strCPw = "";
+				userInputPw = "";
+				userInputCPw = "";
 				return;
 			}
 			
@@ -158,23 +148,23 @@ public class RegisterDialog extends JDialog implements ActionListener{
 				return;
 			}
 			
-			// 정상적으로 처리된 경우
-			// dao.insertUser테스트
-			boolean result = dao.insertUser(userInputName, userInputId, strPw);
-			if (result) {
+			// 정상적으로 처리된 경우 DB에 입력값 저장
+			boolean result = dao.insertUser(userInputName, userInputId, userInputPw);
+			if (result) { // DB에 insert 성공
 				JOptionPane.showMessageDialog(this, "정상적으로 가입이 완료되었습니다.", "가입 완료", JOptionPane.PLAIN_MESSAGE);
 				dispose();
-			} else {
+			} else { // DB insert 실패
 				JOptionPane.showMessageDialog(this, "가입실패", "가입 오류", JOptionPane.ERROR_MESSAGE);
 			}
 			
-		} else if (obj == btnId) {
+		} else if (obj == btnId) { // 중복확인 버튼을 눌렀을 때
 			String userInputId = tfId.getText();
-			// dao.checkId 테스트
+			
+			// 아이디 중복 확인 
 			boolean result = dao.checkId(userInputId);
 			if (result) {
 				JOptionPane.showMessageDialog(this, "사용가능한 아이디 입니다.", "중복 확인", JOptionPane.PLAIN_MESSAGE);
-				useableId = true;
+				useableId = true; 
 				ableId = userInputId;
 				return;
 			} 

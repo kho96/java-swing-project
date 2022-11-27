@@ -55,10 +55,6 @@ public class PictureDiaryWriteFrame extends JFrame implements ActionListener {
 	String[] strsShape = {"직선", "곡선", "사각형", "사각형(색)", "원", "원(색)"};
 	JComboBox<String> comboShape = new JComboBox<>(strsShape);
 	
-//	Color[] colors = {Color.BLACK, Color.BLUE, Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA,
-//							Color.ORANGE, Color.PINK, Color.RED, Color.YELLOW};
-//	JComboBox<Color> comboColor = new JComboBox<>(colors);
-	
 	// 색상 선택
 	JButton btnColor = new JButton("색상");
 	JColorChooser colorChooser = new JColorChooser();
@@ -217,25 +213,10 @@ public class PictureDiaryWriteFrame extends JFrame implements ActionListener {
 					Object obj = e.getItem();
 					userShape = (String)obj;
 					return;
-//					System.out.println(userShape);
 				}
 				
 			}
 		});
-//		comboColor.addItemListener(new ItemListener() {
-//			
-//			@Override
-//			public void itemStateChanged(ItemEvent e) {
-//				int state = e.getStateChange();
-//				if (state == ItemEvent.SELECTED) {
-//					Object obj = e.getItem();
-//					userColor = (Color)obj;
-//					return;
-////					System.out.println(userColor);
-//				}
-//				
-//			}
-//		});
 	}
 	
 	// 페인트 컴포넌트를 위한 JLabel class 생성
@@ -392,61 +373,6 @@ public class PictureDiaryWriteFrame extends JFrame implements ActionListener {
 					}                                                                                        
 					break;                                                                                   
 				}
-//				g.setColor(pic.userColor);
-//				System.out.println(userColor);
-//				System.out.println(userColor.toString());
-//				switch (pic.userShape) {
-//					case "직선" :
-//						g.drawLine(pic.startX, pic.startY, pic.movedX, pic.movedY);
-//						break;
-//					case "곡선" :
-//						g.fillOval(pic.startX, pic.startY, 3, 3);
-//						break;
-//					case "사각형" :
-//						if (pic.movedX > pic.startX && pic.movedY < pic.startY) {                        
-//							g.drawRect(pic.startX, pic.movedY, pic.movedX - pic.startX, pic.startY - pic.movedY);
-//						} else if (pic.movedX >= pic.startX && pic.movedY >= pic.startY) {               
-//							g.drawRect(pic.startX, pic.startY, pic.movedX-pic.startX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY >= pic.startY) {                
-//							g.drawRect(pic.movedX, pic.startY, pic.startX-pic.movedX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY < pic.startY) {                 
-//							g.drawRect(pic.movedX, pic.movedY, pic.startX - pic.movedX, pic.startY - pic.movedY);
-//						}                                                                
-//						break;
-//					case "사각형(색)" :
-//						if (pic.movedX > pic.startX && pic.movedY < pic.startY) {                        
-//							g.fillRect(pic.startX, pic.movedY, pic.movedX - pic.startX, pic.startY - pic.movedY);
-//						} else if (pic.movedX >= pic.startX && pic.movedY >= pic.startY) {               
-//							g.fillRect(pic.startX, pic.startY, pic.movedX-pic.startX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY >= pic.startY) {                
-//							g.fillRect(pic.movedX, pic.startY, pic.startX-pic.movedX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY < pic.startY) {                 
-//							g.fillRect(pic.movedX, pic.movedY, pic.startX - pic.movedX, pic.startY - pic.movedY);
-//						}                                                                 
-//						break;
-//					case "원" :
-//						if (pic.movedX > pic.startX && pic.movedY < pic.startY) {                        
-//							g.drawOval(pic.startX, pic.movedY, pic.movedX - pic.startX, pic.startY - pic.movedY);
-//						} else if (pic.movedX >= pic.startX && pic.movedY >= pic.startY) {               
-//							g.drawOval(pic.startX, pic.startY, pic.movedX-pic.startX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY >= pic.startY) {                
-//							g.drawOval(pic.movedX, pic.startY, pic.startX-pic.movedX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY < pic.startY) {                 
-//							g.drawOval(pic.movedX, pic.movedY, pic.startX - pic.movedX, pic.startY - pic.movedY);
-//						}                                                                
-//						break;
-//					case "원(색)" :
-//						if (pic.movedX > pic.startX && pic.movedY < pic.startY) {                        
-//							g.fillOval(pic.startX, pic.movedY, pic.movedX - pic.startX, pic.startY - pic.movedY);
-//						} else if (pic.movedX >= pic.startX && pic.movedY >= pic.startY) {               
-//							g.fillOval(pic.startX, pic.startY, pic.movedX-pic.startX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY >= pic.startY) {                
-//							g.fillOval(pic.movedX, pic.startY, pic.startX-pic.movedX, pic.movedY-pic.startY);    
-//						} else if (pic.movedX < pic.startX && pic.movedY < pic.startY) {                 
-//							g.fillOval(pic.movedX, pic.movedY, pic.startX - pic.movedX, pic.startY - pic.movedY);
-//						}                                                                 
-//						break;
-//				}
 			}// 벡터 for
 			
 			g.setColor(userColor);
@@ -507,7 +433,7 @@ public class PictureDiaryWriteFrame extends JFrame implements ActionListener {
 	
 	}
 	
-	// 색선택 다이얼로그
+	// 색 선택 다이얼로그
 	class ColorDialog extends JDialog {
 		
 		public ColorDialog() {

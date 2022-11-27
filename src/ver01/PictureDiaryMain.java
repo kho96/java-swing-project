@@ -106,10 +106,7 @@ public class PictureDiaryMain extends JFrame implements ActionListener {
 		lblDate.setText(str);
 		pnlDate.add(lblDate);
 		pnlDate.add(btnR);
-//		showDiary(str);
 		pnlB.add(pnlDate, BorderLayout.NORTH);
-//		pnlB.add(new JScrollPane(txtArea));
-//		txtArea.setEditable(false);
 		paintPnl.setBackground(Color.WHITE);
 		paintPnl.add(paintLabel);
 		pnlB.add(paintPnl);

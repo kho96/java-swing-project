@@ -116,27 +116,40 @@ public class MainFrame extends JFrame implements ActionListener{
 	private void setCenter() {
 		JPanel pnlB = new JPanel(new BorderLayout());
 		JPanel pnlDate = new JPanel();
-		year = String.valueOf(now.get(Calendar.YEAR));  
-		month = String.valueOf(now.get(Calendar.MONTH)+1);
-		date = String.valueOf(now.get(Calendar.DATE));  
-		str = year +"년 " + month + "월 " + date + "일";   
 		pnlDate.add(btnL);
-		lblDate.setText(str);
 		pnlDate.add(lblDate);
 		pnlDate.add(btnR);
-		showDiary(str);
+		setCalendar(now);
 		pnlB.add(pnlDate, BorderLayout.NORTH);
 		pnlB.add(new JScrollPane(txtArea));
 		txtArea.setEditable(false);
 		con.add(pnlB);
 	}
+	
+	
+	// 보여지는 날짜 세팅
+	private void setCalendar(GregorianCalendar now) {
+		year = String.valueOf(now.get(Calendar.YEAR));  
+		month = String.valueOf(now.get(Calendar.MONTH)+1);
+		date = String.valueOf(now.get(Calendar.DATE));  
+		str = year +"년 " + month + "월 " + date + "일";   
+		lblDate.setText(str);
+		showDiary(str);
+	}
 
+	// 날짜 이동
+	private GregorianCalendar changeNow() {
+		int intYear = Integer.parseInt(year);
+		int intMonth = Integer.parseInt(month)-1;
+		int intDate = Integer.parseInt(date);
+		now.set(intYear, intMonth, intDate);
+		return now;
+	}
+	
 	// 일기 보여주기
 	private void showDiary(String str) {
-		String fileName = str.replaceAll(" ", "");                                           
+		String fileName = str.replaceAll(" ", ""); // fileName으로 정의될 문자열에 모든 공백 제거                                        
 		try {                                
-//			InputStreamReader isr = new InputStreamReader(new FileInputStream("C:\\myDiary\\"+fileName+".txt"), "utf-8");
-			// InputStreamReader 인코딩 오류
 			FileReader reader = new FileReader("C:\\myDiary\\"+fileName+".txt");             
 			String str1 = "";                                                                 
 			while (true) {                                                                   
@@ -149,7 +162,7 @@ public class MainFrame extends JFrame implements ActionListener{
 			txtArea.setText(str1);                                                            
 			reader.close();                                                                  
 		} catch (Exception e1) {                                                             
-			txtArea.setText("일기가 존재하지 않습니다.");                                               
+			txtArea.setText("일기가 존재하지 않습니다."); // 읽어올 파일이 없는 경우                                             
 		}       
 	}
 	
@@ -157,36 +170,20 @@ public class MainFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		if (obj == btnWrite) {
+		if (obj == btnWrite) { // 글쓰기
 			dispose();
 			new WriteFrame(id);
-		} else if (obj == btnMenu) {
+		} else if (obj == btnMenu) { // 메뉴
 			dispose();
 			new MenuFrame(id);
-		} else if (obj == btnL) {
-			int intYear = Integer.parseInt(year);
-			int intMonth = Integer.parseInt(month)-1;
-			int intDate = Integer.parseInt(date);
-			now.set(intYear, intMonth, intDate);
+		} else if (obj == btnL) { // 왼쪽
+			now = changeNow();
 			now.add(Calendar.DATE, -1);
-			year = String.valueOf(now.get(Calendar.YEAR));     
-			month = String.valueOf(now.get(Calendar.MONTH)+1); 
-			date = String.valueOf(now.get(Calendar.DATE));
-			str = year +"년 " + month + "월 " + date + "일";      
-			lblDate.setText(str);  
-			showDiary(str);
-		} else if (obj == btnR) {
-			int intYear = Integer.parseInt(year);
-			int intMonth = Integer.parseInt(month)-1;
-			int intDate = Integer.parseInt(date);
-			now.set(intYear, intMonth, intDate);
+			setCalendar(now);
+		} else if (obj == btnR) { // 오른쪽
+			now = changeNow();
 			now.add(Calendar.DATE, +1);
-			year = String.valueOf(now.get(Calendar.YEAR));     
-			month = String.valueOf(now.get(Calendar.MONTH)+1); 
-			date = String.valueOf(now.get(Calendar.DATE));     
-			str = year +"년 " + month + "월 " + date + "일";      
-			lblDate.setText(str);
-			showDiary(str);
+			setCalendar(now);
 		} // if ~ else if
 		
 	}

@@ -28,7 +28,6 @@ public class CalDialog extends JDialog implements ActionListener {
 	// 날짜 값 변수 선언
 	String year, month, date;
 	
-	
 	public CalDialog(Frame owner, String title, boolean modal) {
 		super(owner, title, modal);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -51,7 +50,7 @@ public class CalDialog extends JDialog implements ActionListener {
 		add(pnl, BorderLayout.SOUTH);
 	}
 
-	// 콤보박스 생성(3개-년,월,일) -> 윤달, 30일 31일 등은 우선 생각하지 않기
+	// 콤보박스 생성(3개-년,월,일)
 	private void setComboBox() {
 		JPanel pnl = new JPanel();
 		

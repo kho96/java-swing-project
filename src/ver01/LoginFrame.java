@@ -27,8 +27,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 	Container con = getContentPane();
 	
 	// 입력창
-	JTextField tfId = new JTextField("admin", 10);
-	JPasswordField pfPw	= new JPasswordField("1234", 10);
+	JTextField tfId = new JTextField(10);
+	JPasswordField pfPw	= new JPasswordField(10);
 	
 	// 버튼
 	JButton btnLogin = new JButton("로그인");
@@ -101,7 +101,6 @@ public class LoginFrame extends JFrame implements ActionListener {
 	
 	public static void main(String[] args) {
 		new LoginFrame();
-
 	}
 
 
@@ -113,31 +112,24 @@ public class LoginFrame extends JFrame implements ActionListener {
 			RegisterDialog dialog = new RegisterDialog(LoginFrame.this, "회원가입", true);
 		} else {
 			String id = tfId.getText();
-			char[] chs = pfPw.getPassword();
+			// getPassword -> char[] -> String으로 변환
+			String pw = new String(pfPw.getPassword());
 			// 아이디와 비밀번호 입력을 안했을 경우
 			if (id.trim().equals("")) {
 				JOptionPane.showMessageDialog(con, "아이디를 입력하세요.", "로그인 오류", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			if (chs.length == 0) {
+			if (pw.trim().equals("")) {
 				JOptionPane.showMessageDialog(con, "비밀번호를 입력하세요.", "로그인 오류", JOptionPane.ERROR_MESSAGE);
 				return;
-			}
-			
-			// 얻어낸 비밀번호(char[])를 고속열거문을 이용해 String으로 받아내기
-			// 새로운 방법 -> new String(chs) 사용해보기!
-			String pw = "";
-			for (int i = 0; i < chs.length; i++) {
-				char c = chs[i];                  
-				pw += String.valueOf(c);          
-			}                                     
+			}        
+			// 아이디, 비밀번호 확인
 			boolean result = dao.checkUser(id, pw);
-			System.out.println(result);
-			if(result) {
+			if(result) { // 로그인 성공
 				System.out.println(id);
 				new MenuFrame(id);
 				dispose();      
-			} else {
+			} else { // 로그인 실패
 				JOptionPane.showMessageDialog(con, "아이디 또는 비밀번호를 확인하세요.", "로그인 오류", JOptionPane.ERROR_MESSAGE);         
 				return;                                                                                                 
 			}

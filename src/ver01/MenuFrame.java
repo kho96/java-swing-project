@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 public class MenuFrame extends JFrame implements ActionListener {
 	Container con = getContentPane();
 	JButton btnMyDiary = new JButton("My Diary");
-	JButton btnPaintDiary = new JButton("그림일기(준비중)");
+	JButton btnPaintDiary = new JButton("그림일기");
 	JButton btnFriendDiary = new JButton("교환일기(준비중)");
 	
 	// id값
@@ -48,11 +48,9 @@ public class MenuFrame extends JFrame implements ActionListener {
 	
 	// Center 패널
 	private void setCenter() {
-		JPanel pnl = new JPanel(new GridLayout(3, 1));
+		JPanel pnl = new JPanel(new GridLayout(1, 2));
 		pnl.add(btnMyDiary);
 		pnl.add(btnPaintDiary);
-		pnl.add(btnFriendDiary);
-		btnFriendDiary.setEnabled(false);
 		con.add(pnl);
 	}
 	
