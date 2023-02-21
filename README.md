@@ -24,6 +24,9 @@ Oracle DB 연결 및 입출력 Stream에 대해 공부하기 위해 일기장 �
 ![flowchart](https://github.com/kho96/java-swing-project/blob/master/img-readme/flowchart.png)
 
 ## 실행 화면
+❗ 실행 화면의 경우 파일이 많아 gif파일로 만들었습니다.<br/>
+실행 화면 pdf : [swing-pdf보기](https://github.com/kho96/java-swing-project/blob/master/swing.pdf)(개발 후기는 readme파일을 참고해주세요.)
+
 * <strong>Login Frame (로그인 화면)</strong>
 ![view01](https://github.com/kho96/java-swing-project/blob/master/img-readme/LoginFrame.gif)
 
